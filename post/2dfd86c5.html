@@ -1,0 +1,855 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>nvim配置系列(一)：基础语法介绍 | Sup Bjt</title><meta name="author" content="Sup Bjt"><meta name="copyright" content="Sup Bjt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="neovim的最基础使用操作，以及我自己的一些正在使用得vim插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nvim配置系列(一)：基础语法介绍">
+<meta property="og:url" content="http://www.supbjt.top/post/2dfd86c5.html">
+<meta property="og:site_name" content="Sup Bjt">
+<meta property="og:description" content="neovim的最基础使用操作，以及我自己的一些正在使用得vim插件">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic2.zhimg.com/4803f2e387c3706551a415ab79a9df7c_1200x500.jpg">
+<meta property="article:published_time" content="2022-11-28T08:26:37.000Z">
+<meta property="article:modified_time" content="2023-05-28T13:16:00.354Z">
+<meta property="article:author" content="Sup Bjt">
+<meta property="article:tag" content="neovim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic2.zhimg.com/4803f2e387c3706551a415ab79a9df7c_1200x500.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://www.supbjt.top/post/2dfd86c5"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'nvim配置系列(一)：基础语法介绍',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-28 21:16:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/cat.css"><link rel="stylesheet" href="/css/progress_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css"  media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/gundong.css"><link rel="stylesheet" href="/css/mouse.css"><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/live2d-widget/font-awesome.min.css"><script src="/live2d-widget/autoload.js"></script><script src="/live2d-widget/autoload.js"></script><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/css/main.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="/css/categorybar.css"><link rel="stylesheet" href="/css/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/avat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> Directory</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> Document</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/post/2dfd86c5.html"><i class="fa-fw iconfont icon-neovim"></i><span> Neovim</span></a></li><li><a class="site-page child" href="/post/9211474f.html"><i class="fa-fw iconfont icon-linux"></i><span> Linux</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-file-image-o"></i><span> Gallery</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tva3.sinaimg.cn/large/0073WLvOgy1h7mnk57oz1j31hc0u0tcx.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Sup Bjt</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-list"></i><span> Directory</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-wendang"></i><span> Document</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/post/2dfd86c5.html"><i class="fa-fw iconfont icon-neovim"></i><span> Neovim</span></a></li><li><a class="site-page child" href="/post/9211474f.html"><i class="fa-fw iconfont icon-linux"></i><span> Linux</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-file-image-o"></i><span> Gallery</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">nvim配置系列(一)：基础语法介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-11-28T08:26:37.000Z" title="Created 2022-11-28 16:26:37">2022-11-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-28T13:16:00.354Z" title="Updated 2023-05-28 21:16:00">2023-05-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/neovim/">neovim</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>8min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="nvim配置系列(一)：基础语法介绍"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">Comments:</span><a href="/post/2dfd86c5.html#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="post-series"><h3>neovim-系列：</h3><li><a class="title" href="/post/cec58763.html" title="nvim配置系列(二)：neovim的配置">nvim配置系列(二)：neovim的配置</a></li><li><a class="title" href="/post/2dfd86c5.html" title="nvim配置系列(一)：基础语法介绍">nvim配置系列(一)：基础语法介绍</a></li></div><article class="post-content" id="article-container"><h1 id="neovim系列-一-操作命令">neovim系列(一) 操作命令</h1>
+<a class="btn-beautify orange block right outline larger" href="/categories/neovim/" 
+  title="当前neovim系列，neovim的配置"><i class="far fa-hand-point-right"></i><span>当前neovim系列，neovim的配置</span></a>
+<h2 id="neovim插件设置的命令">neovim插件设置的命令</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TAB</td>
+<td>补全代码，借助coc-vim插件</td>
+</tr>
+<tr>
+<td>Shift+TAB</td>
+<td>在最小化，关闭之间切换</td>
+</tr>
+<tr>
+<td>ctrl+l</td>
+<td>打开coc-vim补全</td>
+</tr>
+<tr>
+<td>enter</td>
+<td>对补全进行确定</td>
+</tr>
+<tr>
+<td>“g[“和”[g”</td>
+<td>对错误行进行切换</td>
+</tr>
+<tr>
+<td>gd</td>
+<td>查找函数的定义</td>
+</tr>
+<tr>
+<td>ctrl+o</td>
+<td>对查找过的函数返回查找地方</td>
+</tr>
+<tr>
+<td>‘\’+r</td>
+<td>对函数进行重定义，这个命令在之后会和vim-visual-multi配合使用</td>
+</tr>
+<tr>
+<td>‘’+h</td>
+<td>对函数参考文档查看</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="插入模式">插入模式</h2>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>在光标的前边进入插入模式</td>
+</tr>
+<tr>
+<td>I</td>
+<td>在光标所在行的行首进入插入模式</td>
+</tr>
+<tr>
+<td>a</td>
+<td>在光标的后边进入插入模式</td>
+</tr>
+<tr>
+<td>A</td>
+<td>在光标所在行的行尾进入插入模式</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在光标所在行的下方插入空行并进入插入模式</td>
+</tr>
+<tr>
+<td>O</td>
+<td>在光标所在行的上方插入空行并进入插入模式</td>
+</tr>
+<tr>
+<td>s</td>
+<td>删除光标指定的字符并进入插入模式</td>
+</tr>
+<tr>
+<td>S</td>
+<td>将光标所在行清除并进入插入模式</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>以前我所使用的方法仅仅是i,a,没有系统学习，在这里我觉得常用的方法是使用I在所在行首行，他对应的A在行尾进行插入，这两个命令则可以和对应的小写比较，大写对应着行，小写对应着字。</p>
+</li>
+<li></li>
+<li>
+<p>s和S和这些类似，因为s对应着自己的字删除，S对应着行的删除。</p>
+</li>
+<li>
+<p>最后是o和O,这个命令和下面的其他模式有类似的意思，但是这个命令o是向下插入空行，O是向上插入空行。</p>
+</li>
+<li>
+<p><strong>退出命令</strong>：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:wq</td>
+<td>保存退出</td>
+</tr>
+<tr>
+<td>shift+zz</td>
+<td>保存退出</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>不修改退出</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>强制退出</td>
+</tr>
+<tr>
+<td>:wq!</td>
+<td>强制保存退出</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>在修改文件要注意查看文件是否为管理员权限的文件，如果是，使用sudo进入，不然无法修改。</p>
+</li>
+<li>
+<p><strong>删除</strong></p>
+</li>
+<li>
+<p>在insert模式之中使用Backspace或者Delete删除，但是建议不要，因为这样不如直接使用vscode。</p>
+</li>
+</ul>
+<hr>
+<h2 id="普通模式">普通模式</h2>
+<ul>
+<li><strong>光标移动命令</strong></li>
+<li>特殊命令，使用x进行删除光标所在的位置字符</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>(大写)将光标定位到行首的位置</td>
+</tr>
+<tr>
+<td>^</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>$</td>
+<td>将光标定位到行尾的位置</td>
+</tr>
+<tr>
+<td>b</td>
+<td>将光标定位到光标所在单词的起始处</td>
+</tr>
+<tr>
+<td>e</td>
+<td>将光标定位到光标所在单词的结尾处</td>
+</tr>
+<tr>
+<td>w</td>
+<td>将光标定位到下一个单词的起始处（注意，是光标所在单词的下一个单词噢^_^）</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>将光标定位到文件的开头</td>
+</tr>
+<tr>
+<td>G</td>
+<td>将光标定位到文件的末尾</td>
+</tr>
+<tr>
+<td>h</td>
+<td>向左移动一格光标</td>
+</tr>
+</tbody>
+</table>
+<p>3h是向前三个格子，类似有j,k,l的命令。</p>
+<ul>
+<li><strong>更多删除命令</strong>
+<ul>
+<li>删除一般使用d命令</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d0</td>
+<td>删除光标从当前位置（不包含）到该行行首的所有字符</td>
+</tr>
+<tr>
+<td>d^</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>删除从光标当前位置（包含）到该行行尾的所有字符</td>
+</tr>
+<tr>
+<td>db</td>
+<td>删除从光标当前位置（不包含）到单词起始处的所有字符</td>
+</tr>
+<tr>
+<td>de</td>
+<td>删除从光标当前位置（包含）到单词结尾处的所有字符</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>删除从光标当前位置（包含）到下个单词起始处的所有字符</td>
+</tr>
+<tr>
+<td>dh</td>
+<td>删除光标前面一个字符</td>
+</tr>
+<tr>
+<td>dl</td>
+<td>删除光标指定的字符</td>
+</tr>
+<tr>
+<td>dj</td>
+<td>删除光标所在行以及下一行的所有字符</td>
+</tr>
+<tr>
+<td>dk</td>
+<td>删除光标所在行以及上一行的所有字符</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除光标所在行的所有字符</td>
+</tr>
+<tr>
+<td>dgg</td>
+<td>删除光标所在行（包含）到文件开头的所有字符</td>
+</tr>
+<tr>
+<td>dG</td>
+<td>删除光标所在行（包含）到文件末尾的所有字符</td>
+</tr>
+<tr>
+<td>jdd</td>
+<td>删除下一行</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>使用d3h删除前三个格子中内容，如此有jkl等其他方法。</p>
+</li>
+<li>
+<p><strong>撤销命令</strong></p>
+<ul>
+<li>小写u是撤销最后一次命令，而大写U是撤销所有命令。</li>
+<li>撤销撤销的命令，类似于套娃，ctrl+r。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>粘贴命令</strong>
+<ul>
+<li>p命令将==最后一次删除的内容粘贴==，和之前的其他命令类似，小写是光标之后，大写则是光标之前。</li>
+<li>p命令如果粘贴整行，会在光标下一行开始，如果是部分，则是光标之后。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>拷贝命令</strong>
+<ul>
+<li>拷贝命令是使用y进行拷贝，3yy表示拷贝三行，y$表示从光标所在位置拷贝到行尾的所有字符，yG表示从光标所在行拷贝到文件末尾航的所有字符。完成之后直接使用p命令粘贴。</li>
+<li>y命令和d命令相同，都有对应的motion，可以参照d命令来查看y命令的motion。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>替换命令</strong>
+<ul>
+<li>r命令是在光标所指的位置进行插入</li>
+<li>r命令无需进入插入模式，同时r命令可以在命令中使用<strong>数字+r</strong>进行更改。</li>
+<li><strong>替换模式</strong>
+<ul>
+<li>进入R</li>
+<li>在替换模式中backspace被设置为如果左边内容被替换过，恢复到原来样子，若未替换，则简单向左移动。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>修改命令</strong>
+<ul>
+<li>c进入，会自动进入插入模式</li>
+<li>格式为c[number]motion</li>
+<li>motion和数字是可选择的</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c0</td>
+<td>删除光标从当前位置（不包含）到该行行首的所有字符，并进入插入模式</td>
+</tr>
+<tr>
+<td>c^</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>c$</td>
+<td>删除从光标当前位置（包含）到该行行尾的所有字符，并进入插入模式</td>
+</tr>
+<tr>
+<td>cb</td>
+<td>删除从光标当前位置（不包含）到单词起始处的所有字符，并进入插入模式</td>
+</tr>
+<tr>
+<td>ce</td>
+<td>删除从光标当前位置（包含）到单词结尾处的所有字符，并进入插入模式</td>
+</tr>
+<tr>
+<td>cw</td>
+<td>删除从光标当前位置（包含）到下个单词起始处的所有字符，并进入插入模式</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>删除光标前边一个字符，并进入插入模式</td>
+</tr>
+<tr>
+<td>cl</td>
+<td>删除光标指定的字符，并进入插入模式</td>
+</tr>
+<tr>
+<td>cj</td>
+<td>删除光标所在行以及下一行的所有字符，并在光标下一行进入插入模式</td>
+</tr>
+<tr>
+<td>ck</td>
+<td>删除光标所在行以及上一行的所有字符，并在光标下一行进入插入模式</td>
+</tr>
+<tr>
+<td>cc</td>
+<td>删除光标所在行的字符，并进入插入模式</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="文件信息-跳转-定位括号和缩进">文件信息、跳转、定位括号和缩进</h2>
+<ul>
+<li><strong>文件信息</strong>：
+<ul>
+<li>crtl+g快速解决，在有nvim插件情况之下可以不使用</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>跳转</strong></li>
+<li>跳转常用的命令是<code>行号+G</code>或者是<code>:行号</code></li>
+</ul>
+<hr>
+<ul>
+<li><strong>定位括号</strong></li>
+<li>在任意一半括号之上使用%进行跳转。</li>
+</ul>
+<hr>
+<ul>
+<li><strong>代码缩进</strong></li>
+<li>我设置了nvim插件coc-nvim中的coc-rust-analyzer缩进，他会在文件保存进行自动缩进，但是使用vim就必须要学会手动缩进</li>
+<li>VIM 可以使用尖括号（&lt; 或 &gt;）来控制缩进，我们常用的就是两个同方向的尖括号表示将光标所在的语句进行缩进和反缩进操作。很明显 &gt;&gt; 表示缩进，而 &lt;&lt; 则表示反缩进。</li>
+<li>进入可视化(v)然后选中进行缩进，这只需要一个&lt;或者是&gt;。</li>
+</ul>
+<hr>
+<h2 id="搜索命令">搜索命令</h2>
+<ul>
+<li>
+<p>使用<code>/</code>或者<code>?</code>进入搜索模式，这时下方会出现<code>(:)</code>，你可以进行搜索。</p>
+</li>
+<li>
+<p>搜索之后，然后使用n或者N进行切换上一个和下一个搜索。</p>
+</li>
+<li>
+<p>/从光标位置向后，?从光标位置向前</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>搜索方向</th>
+<th>/</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>向后搜索下一个</td>
+</tr>
+<tr>
+<td>N</td>
+<td>向前搜索下一个</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>搜索方向</th>
+<th>？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>n</td>
+<td>向前搜索下一个</td>
+</tr>
+<tr>
+<td>N</td>
+<td>向后搜索下一个</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>在搜索命令中，<strong>.、*、[、]、^、%、/、?、~</strong> 和 <strong>$</strong> 这 10 个字符有着特殊意义，所以在使用这些字符的时候要在前面加上一个反斜杠**（\）**，比如你要搜索问号，则输入 <strong>/?</strong>。</li>
+<li>退出搜索模式高亮：使用<code>:nohl</code></li>
+</ul>
+<h2 id="替换命令">替换命令</h2>
+<ul>
+<li>需要和搜索命令相结合</li>
+<li>通过搜索功能，我们将光标定位到目标位置，如果你确定这个目标是可恶的，需要被替换的，你可以输入 <strong><code>:s/old/new</code></strong>，这样即可将光标所在行的第一个 old 替换为 new；你如果输入的是 <strong><code>:s/old/new/g</code></strong>，则表示将光标所在行的所有 old 替换为 new。</li>
+<li>输入 <strong>:%s/old/new/g</strong>表示替换整个文件中每个匹配的字符串。</li>
+<li>输入 <strong>:%s/old/new/gc</strong>替换的时候进行询问。
+<ul>
+<li>这个时候会提示 <code>(y/n/a/q/l/^E/^Y)</code>，需要判断
+<ul>
+<li>y 表示替换</li>
+<li>n 表示不替换</li>
+<li>a 表示替换所有</li>
+<li>q 表示放弃替换<br>
+l		-  表示替换第一个并进入插入模式</li>
+<li>^E 表示用 Ctrl+e 来滚动屏幕</li>
+<li>^Y 表示用 Ctrl+y 来滚动屏幕</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>替换某几行的，如5：13行的：<br>
+-  <code>:5,13s/old/new/g</code></li>
+</ul>
+<hr>
+<h2 id="和shell相互结合">和shell相互结合</h2>
+<ul>
+<li>vim允许和shell相互结合使用，因为vim有<code>!</code>。</li>
+<li>在输入冒号（:）进入命令行模式，输入感叹号（!），在其后便可以加上 shell 命令。此后 VIM 将临时跳转回 shell，并执行命令。再次按下 Enter 键回到 VIM。</li>
+</ul>
+<hr>
+<ul>
+<li><strong>文件另存为</strong>
+<ul>
+<li>使用 <code>:w test2</code>将现有的test文件转换为test2保存。</li>
+<li><strong>可视模式局部文件内容另存为</strong>
+<ul>
+<li>使用V进入，然后使用hjkl进行选中，最后用<code>:w test2</code>保存</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><strong>合并文件</strong>
+<ul>
+<li>使用<code>:</code>，然后输入r 文件名，就可以将文件内的内容复制到光标的下一行之中</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>
+<p><strong>打开多个文件</strong></p>
+</li>
+<li>
+<p>使用-o或者是-O进行选择，-o是垂直排列，-O是水平排列</p>
+</li>
+<li>
+<p><code>vim -o test1.c tst2.c</code></p>
+</li>
+<li>
+<p>使用 ctrl + w + w 将光标切换到下一个文件；或者使用 ctrl + w + 方向（方向键或 h、j、k、l）。</p>
+<ul>
+<li>对于垂直并排的文件：使用 ctrl + w + 上、下方向，表示上、下切换文件；</li>
+<li>对于水平并排的文件：使用 ctrl + w + 左、右方向，表示左、右切换文件。</li>
+</ul>
+</li>
+<li>
+<p>退出使用标准退出如<code>:q</code>或者其他</p>
+</li>
+<li>
+<p>其他方法，直接退出所有文件：</p>
+<ul>
+<li>只需在原来退出命令的后边加上小写 a，则表示退出动作是针对所有的（ALL）：qa、qa!、wqa</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="关于vim使用插件markdown">关于vim使用插件markdown</h2>
+<ul>
+<li>安装的插件为：instant-markdown</li>
+<li>需要的插件为npm nodejs,这些在arch linux的官方库中存在。</li>
+<li>安装方法，使用:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Plug <span class="string">&#x27;instant-markdown/vim-instant-markdown&#x27;</span>, &#123;<span class="string">&#x27;for&#x27;</span>: <span class="string">&#x27;markdown&#x27;</span>, <span class="string">&#x27;do&#x27;</span>: <span class="string">&#x27;yarn install&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>然后使用npm安装插件<code>instant-markdwon-d</code>,:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[sudo] npm -g install instant-markdown-d</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最后使用的是配置文件，添加到init.vim即可</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;configure the markdown&#x27;</span></span><br><span class="line"><span class="string">&quot;</span>configure the script to run</span><br><span class="line"><span class="built_in">let</span> g:instant_markdown_allow_unsafe_content = 1</span><br><span class="line"><span class="string">&quot;configure the latex math to the markdown</span></span><br><span class="line"><span class="string">let g:instant_markdown_mathjax = 1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>最后将他添加到配置文件中即可。</li>
+</ul>
+<a class="btn-beautify green block right outline larger" href="/post/cec58763.html" 
+  title="下一章，neovim的配置"><i class="far fa-hand-point-right"></i><span>下一章，neovim的配置</span></a>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>nvim配置系列(一)：基础语法介绍</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="http://www.supbjt.top/post/2dfd86c5.html">http://www.supbjt.top/post/2dfd86c5.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Sup Bjt</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2022-11-28</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2023-05-28</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/neovim/">neovim</a></div><div class="post_share"><div class="social-share" data-image="https://pic2.zhimg.com/4803f2e387c3706551a415ab79a9df7c_1200x500.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/post/9211474f.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/default_bg5.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">linux学习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/post/cec58763.html" title="nvim配置系列(二)：neovim的配置"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic2.zhimg.com/4803f2e387c3706551a415ab79a9df7c_1200x500.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-31</div><div class="title">nvim配置系列(二)：neovim的配置</div></div></a></div><div><a href="/post/63e74fea.html" title="nvim复制多行以及多行注释"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/default_bg5.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-27</div><div class="title">nvim复制多行以及多行注释</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/avat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Sup Bjt</div><div class="author-info__description">SupBjt's personal blog,which including the theme of "Linux","Rust",also Life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">101</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/3192575523"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/3192575523" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:q2367485914@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">快乐每一天</div></div><div class="xpand" style="height:200px;"></div><canvas class="illo" width="800" height="800" style="max-width: 200px; max-height: 200px; touch-action: none; width: 640px; height: 640px;"></canvas><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople1.js"></script><script src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/zdog.dist.js"></script><script id="rendered-js" src="https://fastly.jsdelivr.net/gh/xiaopengand/blogCdn@latest/xzxr/twopeople.js"></script><style>.card-widget.card-announcement {
+margin: 0;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+canvas {
+display: block;
+margin: 0 auto;
+cursor: move;
+}</style><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#neovim%E7%B3%BB%E5%88%97-%E4%B8%80-%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">neovim系列(一) 操作命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#neovim%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">neovim插件设置的命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">插入模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">普通模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF-%E8%B7%B3%E8%BD%AC-%E5%AE%9A%E4%BD%8D%E6%8B%AC%E5%8F%B7%E5%92%8C%E7%BC%A9%E8%BF%9B"><span class="toc-number">1.4.</span> <span class="toc-text">文件信息、跳转、定位括号和缩进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%91%BD%E4%BB%A4"><span class="toc-number">1.5.</span> <span class="toc-text">搜索命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E5%91%BD%E4%BB%A4"><span class="toc-number">1.6.</span> <span class="toc-text">替换命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%92%8Cshell%E7%9B%B8%E4%BA%92%E7%BB%93%E5%90%88"><span class="toc-number">1.7.</span> <span class="toc-text">和shell相互结合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Evim%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6markdown"><span class="toc-number">1.8.</span> <span class="toc-text">关于vim使用插件markdown</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/1d730b02.html" title="Rust位运算的使用技巧整理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/default_bg5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Rust位运算的使用技巧整理"/></a><div class="content"><a class="title" href="/post/1d730b02.html" title="Rust位运算的使用技巧整理">Rust位运算的使用技巧整理</a><time datetime="2023-08-01T07:11:22.000Z" title="Created 2023-08-01 15:11:22">2023-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/c439951a.html" title="leetcode37--解数独"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/default_bg2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="leetcode37--解数独"/></a><div class="content"><a class="title" href="/post/c439951a.html" title="leetcode37--解数独">leetcode37--解数独</a><time datetime="2023-08-01T06:22:18.000Z" title="Created 2023-08-01 14:22:18">2023-08-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/0.html" title="No title"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/default_bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/post/0.html" title="No title">No title</a><time datetime="2023-07-31T14:52:23.707Z" title="Created 2023-07-31 22:52:23">2023-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/0.html" title="No title"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/myimg/default_bg3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/post/0.html" title="No title">No title</a><time datetime="2023-07-31T14:52:23.697Z" title="Created 2023-07-31 22:52:23">2023-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/cec58763.html" title="nvim配置系列(二)：neovim的配置"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic2.zhimg.com/4803f2e387c3706551a415ab79a9df7c_1200x500.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nvim配置系列(二)：neovim的配置"/></a><div class="content"><a class="title" href="/post/cec58763.html" title="nvim配置系列(二)：neovim的配置">nvim配置系列(二)：neovim的配置</a><time datetime="2023-07-31T14:52:22.864Z" title="Created 2023-07-31 22:52:22">2023-07-31</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://tva3.sinaimg.cn/large/0073WLvOgy1h7mnk57oz1j31hc0u0tcx.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Sup Bjt</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/beian.png"/><span>陕ICP备2022013839号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Switch Between Traditional Chinese And Simplified Chinese">簡</button><a class="icon-V hidden" onclick="switchNightMode()" title="Switch Between Light And Dark Mode"></a><svg width="25" height="25" viewBox="0 0 1024 1024"></svg><use id="modeicon" xlink:href="#icon-moon"></use><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo-dp7j83z0h-3192575523.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-dp7j83z0h-3192575523.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="/js/cat.js"></script><script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script><canvas id="universe"></canvas><script defer src="/js/light.js"></script><script defer src="/js/universe.js"></script><script src="/js/sun_moon.js" async></script><script src="/live2d-widget/jquery.min.js"></script><div class="aplayer no-destroy" data-id="8018736558" data-server="tencent" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>function history_calendar_injector_config(){
+                var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+                var item_html = '<div class="card-widget card-history"><div class="card-content"><div class="item-headline"><i class="fas fa-clock fa-spin"></i><span>那年今日</span></div><div id="history-baidu" style="height: 100px;overflow: hidden"><div class="history_swiper-container" id="history-container" style="width: 100%;height: 100%"><div class="swiper-wrapper" id="history_container_wrapper" style="height:20px"></div></div></div></div>';
+                console.log('已挂载history_calendar')
+                // parent_div_git.innerHTML=item_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",item_html) // 有报错，但不影响使用(支持pjax跳转)
+            }if( document.getElementsByClassName('sticky_layout')[0] && (location.pathname ==='all'|| 'all' ==='all')){
+
+            history_calendar_injector_config()
+        } </script><script data-pjax  src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script><script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-card-history/baiduhistory/js/main.js"></script><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:24%;}.categoryBar-list{max-height: 380px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 320px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(/myimg/message3.jpg);"> <a class="categoryBar-list-link" href="categories/linux/">linux</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://xinzhuobu.com/wp-content/uploads/2022/10/20221023001.jpg);"> <a class="categoryBar-list-link" href="categories/hexo/">hexo</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(/myimg/message2.jpg);"> <a class="categoryBar-list-link" href="categories/Rust/">Rust</a><span class="categoryBar-list-count">76</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(/myimg/message1.jpg);"> <a class="categoryBar-list-link" href="categories/Rust迭代器/">Rust迭代器</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://xinzhuobu.com/wp-content/uploads/2022/09/20220917004.jpeg);"> <a class="categoryBar-list-link" href="categories/git/">git</a><span class="categoryBar-list-count">2</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://s4.ax1x.com/2022/02/20/HOUQAI.jpg);"> <a class="categoryBar-list-link" href="categories/LeetCode/">LeetCode</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://xinzhuobu.com/wp-content/uploads/2022/12/20221215002.jpg);"> <a class="categoryBar-list-link" href="categories/neovim/">neovim</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(/myimg/categority.jpg);"> <a class="categoryBar-list-link" href="categories/TimeSeries/">TimeSeries</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '1s');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '2');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="/js/wow.min.js"></script><script defer src="/js/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
