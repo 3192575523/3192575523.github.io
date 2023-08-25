@@ -1,11 +1,11 @@
-<h1 id="Live2D-Widget">Live2D Widget</h1>
+<h1 id="live2d-widget">Live2D Widget</h1>
 <p><img src="https://forthebadge.com/images/badges/built-with-love.svg" alt=""><br>
 <img src="https://forthebadge.com/images/badges/uses-html.svg" alt=""><br>
 <img src="https://forthebadge.com/images/badges/made-with-javascript.svg" alt=""><br>
 <img src="https://forthebadge.com/images/badges/contains-cat-gifs.svg" alt=""><br>
 <img src="https://forthebadge.com/images/badges/powered-by-electricity.svg" alt=""><br>
 <img src="https://forthebadge.com/images/badges/makes-people-smile.svg" alt=""></p>
-<h2 id="特性-Feature">特性 Feature</h2>
+<h2 id="特性-feature">特性 Feature</h2>
 <p>在网页中添加 Live2D 看板娘。兼容 PJAX，支持无刷新加载。<br>
 Add Live2D widget to web page. Compatible with PJAX.</p>
 <p><img src="assets/screenshot-2.png" width="280"><img src="assets/screenshot-3.png" width="280"><img src="assets/screenshot-1.png" width="270"></p>
@@ -16,7 +16,7 @@ Add Live2D widget to web page. Compatible with PJAX.</p>
 <li><a href="https://mi.js.org/live2d-widget/demo/demo.html">demo.html</a>，展现基础功能</li>
 <li><a href="https://mi.js.org/live2d-widget/demo/login.html">login.html</a>，仿 NPM 的登陆界面</li>
 </ul>
-<h2 id="使用-Usage">使用 Usage</h2>
+<h2 id="使用-usage">使用 Usage</h2>
 <p>如果你是小白，或者只需要最基础的功能，那么只用将这一行代码加入 html 页面的 <code>head</code> 或 <code>body</code> 中，即可加载看板娘：</p>
 <pre><code class="language-xml">&lt;script src=&quot;https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js&quot;&gt;&lt;/script&gt;
 </code></pre>
@@ -24,7 +24,7 @@ Add Live2D widget to web page. Compatible with PJAX.</p>
 如果网站启用了 PJAX，由于看板娘不必每页刷新，需要注意将该脚本放到 PJAX 刷新区域之外。</p>
 <p><strong>但是！我们强烈推荐自己进行配置，让看板娘更加适合你的网站！</strong><br>
 如果你有兴趣自己折腾的话，请看下面的详细说明。</p>
-<h2 id="配置-Configuration">配置 Configuration</h2>
+<h2 id="配置-configuration">配置 Configuration</h2>
 <p>你可以对照 <code>autoload.js</code> 的源码查看可选的配置项目。<code>autoload.js</code> 会自动加载三个文件：<code>waifu.css</code>，<code>live2d.min.js</code> 和 <code>waifu-tips.js</code>。<code>waifu-tips.js</code> 会创建 <code>initWidget</code> 函数，这就是加载看板娘的主函数。<code>initWidget</code> 函数接收一个 Object 类型的参数，作为看板娘的配置。以下是配置选项：</p>
 <table>
 <thead>
@@ -63,7 +63,7 @@ Add Live2D widget to web page. Compatible with PJAX.</p>
 </tbody>
 </table>
 <p>其中，<code>apiPath</code> 和 <code>cdnPath</code> 两个参数设置其中一项即可。<code>apiPath</code> 是后端 API 的 URL，可以自行搭建，并增加模型（需要修改的内容比较多，此处不再赘述），可以参考 <a href="https://github.com/fghrsh/live2d_api">live2d_api</a>。而 <code>cdnPath</code> 则是通过 jsDelivr 这样的 CDN 服务加载资源，更加稳定。</p>
-<h2 id="自定义-Customization">自定义 Customization</h2>
+<h2 id="自定义-customization">自定义 Customization</h2>
 <p>如果以上「配置」部分提供的选项还不足以满足你的需求，那么你可以自己进行修改。本仓库的目录结构如下：</p>
 <ul>
 <li><code>src/waifu-tips.js</code> 包含了按钮和对话框的逻辑；</li>
@@ -79,9 +79,9 @@ npm install
 npm run build
 </code></pre>
 <p>如果有任何疑问，欢迎提 Issue。如果有任何修改建议，欢迎提 Pull Request。</p>
-<h2 id="部署-Deploy">部署 Deploy</h2>
+<h2 id="部署-deploy">部署 Deploy</h2>
 <p>在本地完成了修改后，你可以将修改后的项目部署在服务器上，或者通过 CDN 加载，以便在网页中使用。</p>
-<h3 id="Using-CDN">Using CDN</h3>
+<h3 id="using-cdn">Using CDN</h3>
 <p>要自定义有关内容，可以把这个仓库 Fork 一份，然后把修改后的内容通过 git push 到你的仓库中。这时，使用方法对应地变为</p>
 <pre><code class="language-xml">&lt;script src=&quot;https://fastly.jsdelivr.net/gh/username/live2d-widget@latest/autoload.js&quot;&gt;&lt;/script&gt;
 </code></pre>
@@ -90,7 +90,7 @@ npm run build
 <li><a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">Git Basics - Tagging</a></li>
 <li><a href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository">Managing releases in a repository</a></li>
 </ul>
-<h3 id="Self-host">Self-host</h3>
+<h3 id="self-host">Self-host</h3>
 <p>你也可以直接把这些文件放到服务器上，而不是通过 CDN 加载。</p>
 <ul>
 <li>如果你能够通过 <code>ssh</code> 连接你的主机，请把 Fork 并修改后的代码仓库克隆到服务器上。</li>
@@ -109,7 +109,7 @@ npm run build
 <pre><code class="language-xml">&lt;script src=&quot;https://example.com/path/to/live2d-widget/autoload.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <p>就可以加载了。</p>
-<h2 id="鸣谢-Thanks">鸣谢 Thanks</h2>
+<h2 id="鸣谢-thanks">鸣谢 Thanks</h2>
 <a href="https://www.browserstack.com/">
   <picture>
     <source media="(prefers-color-scheme: dark)" height="80" srcset="https://d98b8t1nnulk5.cloudfront.net/production/images/layout/logo-header.png?1469004780">
@@ -136,7 +136,7 @@ Thanks jsDelivr for providing public CDN service.</p>
 <a href="https://www.fghrsh.net/post/123.html">https://www.fghrsh.net/post/123.html</a></p>
 <p>感谢 <a href="https://hitokoto.cn">一言</a> 提供的语句接口。</p>
 <p>点击看板娘的纸飞机按钮时，会出现一个彩蛋，这来自于 <a href="http://www.websiteasteroids.com">WebsiteAsteroids</a>。</p>
-<h2 id="更多-More">更多 More</h2>
+<h2 id="更多-more">更多 More</h2>
 <p>更多内容可以参考：<br>
 <a href="https://nocilol.me/archives/lab/add-dynamic-poster-girl-with-live2d-to-your-blog-02">https://nocilol.me/archives/lab/add-dynamic-poster-girl-with-live2d-to-your-blog-02</a><br>
 <a href="https://github.com/xiazeyu/live2d-widget.js">https://github.com/xiazeyu/live2d-widget.js</a><br>
@@ -151,7 +151,7 @@ Thanks jsDelivr for providing public CDN service.</p>
 <a href="https://github.com/LikeNeko/L2dPetForMac">https://github.com/LikeNeko/L2dPetForMac</a></p>
 <p>以及 Wallpaper Engine：<br>
 <a href="https://github.com/guansss/nep-live2d">https://github.com/guansss/nep-live2d</a></p>
-<h2 id="许可证-License">许可证 License</h2>
+<h2 id="许可证-license">许可证 License</h2>
 <p>Released under the GNU General Public License v3<br>
 <a href="http://www.gnu.org/licenses/gpl-3.0.html">http://www.gnu.org/licenses/gpl-3.0.html</a></p>
 <p>本仓库并不包含任何模型，用作展示的所有 Live2D 模型、图片、动作数据等版权均属于其原作者，仅供研究学习，不得用于商业用途。</p>
@@ -166,7 +166,7 @@ Live2D Cubism Components は Live2D Open Software License で提供していま�
 <p>The terms and conditions do prohibit modification, but obfuscating in <code>live2d.min.js</code> would not be considered illegal modification.</p>
 </blockquote>
 <p><a href="https://community.live2d.com/discussion/140/webgl-developer-licence-and-javascript-question">https://community.live2d.com/discussion/140/webgl-developer-licence-and-javascript-question</a></p>
-<h2 id="更新-Update">更新 Update</h2>
+<h2 id="更新-update">更新 Update</h2>
 <p>2018年10月31日，由 fghrsh 提供的原 API 停用，请更新至新地址。参考文章：<br>
 <a href="https://www.fghrsh.net/post/170.html">https://www.fghrsh.net/post/170.html</a></p>
 <p>2020年1月1日起，本项目不再依赖于 jQuery。</p>
