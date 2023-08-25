@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Rust在windows下的配置</title>
+      <link href="/post/1f4805cc.html"/>
+      <url>/post/1f4805cc.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="windows下rust的配置">windows下Rust的配置</h1><p>microsoft比较喜欢rust编程语言，在它的官网之上，有针对rust的配置说明.<br><img src="https://learn.microsoft.com/zh-cn/windows/dev-environment/rust/setup" alt="配置说明"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Rust网络编程</title>
       <link href="/post/f746986d.html"/>
       <url>/post/f746986d.html</url>
