@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Rust类型之间的转换</title>
+      <link href="/post/eb2b1172.html"/>
+      <url>/post/eb2b1172.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="rust类型之间的转换">Rust类型之间的转换</h1><div class="note info modern"><blockquote><p>Rust由于其严格的编译器检查，其语法转换较为繁杂</p></blockquote></div><h2 id="string-和-vec-的转换">String 和 Vec&lt;&gt;的转换</h2><h3 id="string和vec-i32-的转换">String和Vec<i32>的转换</h3><ul><li>string转换为vec<i32></li></ul><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">vec_i32</span>: <span class="type">Vec</span>&lt;<span class="type">i32</span>&gt; = string.<span class="title function_ invoke__">chars</span>().<span class="title function_ invoke__">map</span>(|c| c.<span class="title function_ invoke__">to_digit</span>(<span class="number">10</span>).<span class="title function_ invoke__">unwrap</span>() <span class="keyword">as</span> <span class="type">i32</span>).<span class="title function_ invoke__">collect</span>();</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">vec_i32</span> = input_string.<span class="title function_ invoke__">split</span>(&#x27;&#x27;).<span class="title function_ invoke__">map</span>(|s| s.<span class="title function_ invoke__">trim</span>().<span class="title function_ invoke__">parse</span>()).<span class="title function_ invoke__">collect</span>()</span><br></pre></td></tr></table></figure><ul><li>vec<i32>转换为string</li></ul><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">string</span>: <span class="type">String</span> = vec_i32.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">map</span>(<span class="built_in">ToString</span>::to_string).<span class="title function_ invoke__">collect</span>();</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">string</span> = vec_i32.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">map</span>(|i| i.<span class="title function_ invoke__">to_string</span>()).collect::&lt;<span class="type">String</span>&gt;();</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Rust在windows下的配置</title>
       <link href="/post/1f4805cc.html"/>
       <url>/post/1f4805cc.html</url>
