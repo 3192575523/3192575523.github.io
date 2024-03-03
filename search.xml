@@ -8,7 +8,7 @@
       <link href="/post/c04f36fa.html"/>
       <url>/post/c04f36fa.html</url>
       
-        <content type="html"><![CDATA[<h1 id="wsl2安装图形界面">WSL2安装图形界面</h1><ul><li>在wsl2安装图形界面参照以下<br>链接: <a href="https://www.bilibili.com/video/BV1AV4y1K7Xe/?spm_id_from=333.337.search-card.all.click&amp;vd_source=d02dd0fde21b411f687d002e2c338b20"></a></li><li>安装完成后, 需要配置一下wsl2的图形界面, 使其能够正常使用.</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure><ul><li>在结果中，将 <code>172.18.231.178</code>添加到windows远程桌面连接中，使用root用户即可。</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="wsl2安装图形界面">WSL2安装图形界面</h1><h2 id="在wsl2安装图形界面参照以下">在wsl2安装图形界面参照以下</h2><p><a href="https://www.bilibili.com/video/BV1AV4y1K7Xe/?spm_id_from=333.337.search-card.all.click&amp;vd_source=d02dd0fde21b411f687d002e2c338b20/">B站链接</a></p><ul><li>安装完成后, 需要配置一下wsl2的图形界面, 使其能够正常使用.</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure><ul><li>在结果中，将 <code>172.18.231.178</code>添加到windows远程桌面连接中，使用root用户即可。</li></ul>]]></content>
       
       
       <categories>
